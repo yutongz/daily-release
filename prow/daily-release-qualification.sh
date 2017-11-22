@@ -28,9 +28,9 @@ set -x
 
 # exports $HUB and $TAG
 source greenBuild.VERSION
-echo "Using artifacts from HUB=${HUB} TAG=${TAG} PROJECT=${PROJECT}"
+echo "Using artifacts from HUB=${HUB} TAG=${TAG} GCS_BUCKET=${GCS_BUCKET}"
 
-ISTIOCTL_URL="https://storage.googleapis.com/${PROJECT}/builds/master/${TAG}"
+ISTIOCTL_URL="https://storage.googleapis.com/${GCS_BUCKET}/${TAG}"
 echo "using ISTIOCTL_URL=${ISTIOCTL_URL}"
 
 git clone https://github.com/istio/istio.git

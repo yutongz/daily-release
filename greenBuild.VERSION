@@ -2,6 +2,6 @@
 
 export HUB="gcr.io/istio-testing"
 export TAG="0.4.0"
-export ISTIOCTL_URL="https://storage.googleapis.com/laane-istio-dev-builds/prerelease/0.4.0/istioctl"
+export ISTIOCTL_URL="https://storage.googleapis.com/istio-prerelease/prerelease/0.4.0/istioctl"
 # Timestamp allows rerun on the same artifacts
 export TIME=1513360869397138104

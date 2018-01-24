@@ -33,7 +33,6 @@ fi
 
 # Exports $HUB, $TAG, and $ISTIOCTL_URL
 source greenBuild.VERSION
-echo "Preparing to run daily-e2e-cluster_wide-auth-test"
 echo "Using artifacts from HUB=${HUB} TAG=${TAG} ISTIOCTL_URL=${ISTIOCTL_URL}"
 
 ISTIO_SHA=`curl $ISTIOCTL_URL/../manifest.xml | grep -E "name=\"(([a-z]| -)*)/istio\"" | cut -f 6 -d \"`

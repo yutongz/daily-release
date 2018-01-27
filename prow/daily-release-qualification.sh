@@ -38,7 +38,7 @@ echo "Using artifacts from HUB=${HUB} TAG=${TAG} ISTIOCTL_URL=${ISTIOCTL_URL}"
 # Checkout istio at the greenbuild
 mkdir -p ${GOPATH}/src/istio.io
 cd ${GOPATH}/src/istio.io
-git clone -n https://github.com/istio/istio.git
+#git clone -n https://github.com/istio/istio.git
 cd istio
 ISTIO_SHA=`curl $ISTIOCTL_URL/../manifest.xml | grep -E "name=\"(([a-z]| -)*)/istio\"" | cut -f 6 -d \"`
 [[ -z "${ISTIO_SHA}"  ]] && echo "error need to test with specific SHA" && exit 1
@@ -61,5 +61,6 @@ cp -R ${DAILY_BUILD}/install/* install/
 #  Artifact dir is hardcoded in Prow - boostrap to be in first repo checked out
 ARTIFACTS_DIR="${GOPATH}/src/github.com/istio-releases/daily-release/_artifacts"
 
-echo 'Running Integration Tests'
-make e2e_all E2E_ARGS="--test_logs_path="${ARTIFACTS_DIR}" --istioctl_url "${ISTIOCTL_URL}" "$@""
+echo 'Running E2E Tests'
+ARGS="--test_logs_path="${ARTIFACTS_DIR}" --istioctl_url "${ISTIOCTL_URL}" "$@""
+make e2e_all E2E_ARGS="${ARGS}"

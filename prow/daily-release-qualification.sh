@@ -59,22 +59,23 @@ wget $LINUX_DIST_URL
 tar -xzf ${DAILY_BUILD}-linux.tar.gz
 cp -R ${DAILY_BUILD}/install/* install/
 
+
 #  Artifact dir is hardcoded in Prow - boostrap to be in first repo checked out
 ARTIFACTS_DIR="${GOPATH}/src/github.com/istio-releases/daily-release/_artifacts"
 
 echo 'Running E2E Tests'
-ARGS="--test_logs_path="${ARTIFACTS_DIR}" --istioctl_url "${ISTIOCTL_STAGE_URL}" "$@""
+ARGS=( --test_logs_path="${ARTIFACTS_DIR}" --istioctl_url "${ISTIOCTL_STAGE_URL}" "$@" )
 
-EXTRA_E2E_ARGS = ()
-EXTRA_E2E_ARGS += --mixer_tag ${TAG}
-EXTRA_E2E_ARGS += --pilot_tag ${TAG}
-EXTRA_E2E_ARGS += --proxy_tag ${TAG}
-EXTRA_E2E_ARGS += --ca_tag ${TAG}
-EXTRA_E2E_ARGS += --mixer_hub ${HUB}
-EXTRA_E2E_ARGS += --pilot_hub ${HUB}
-EXTRA_E2E_ARGS += --proxy_hub ${HUB}
-EXTRA_E2E_ARGS += --ca_hub ${HUB}
+EXTRA_E2E_ARGS=()
+EXTRA_E2E_ARGS+=( --mixer_tag="${TAG}" )
+EXTRA_E2E_ARGS+=( --pilot_tag="${TAG}" )
+EXTRA_E2E_ARGS+=( --proxy_tag="${TAG}")
+EXTRA_E2E_ARGS+=( --ca_tag="${TAG}")
+EXTRA_E2E_ARGS+=( --mixer_hub="${HUB}")
+EXTRA_E2E_ARGS+=( --pilot_hub="${HUB}")
+EXTRA_E2E_ARGS+=( --proxy_hub="${HUB}")
+EXTRA_E2E_ARGS+=( --ca_hub="${HUB}")
 
-go test -v -timeout 20m ./tests/e2e/tests/simple -args ${ARGS} ${EXTRA_E2E_ARGS}
-go test -v -timeout 20m ./tests/e2e/tests/mixer -args ${ARGS} ${EXTRA_E2E_ARGS}
-go test -v -timeout 20m ./tests/e2e/tests/bookinfo -args ${ARGS} ${EXTRA_E2E_ARGS}
+go test -v -timeout 20m ./tests/e2e/tests/simple -args ${ARGS[@]} ${EXTRA_E2E_ARGS[@]}
+go test -v -timeout 20m ./tests/e2e/tests/mixer -args ${ARGS[@]} ${EXTRA_E2E_ARGS}
+go test -v -timeout 20m ./tests/e2e/tests/bookinfo -args ${ARGS[@]} ${EXTRA_E2E_ARGS}
